@@ -17,8 +17,8 @@ float DRAG_GEAR = -0.5;
 float DT = 0.02;
 
 //Field dimensions
-float FIELD_LENGTH = 648;
-float FIELD_WIDTH = 324;
+int FIELD_LENGTH = 648;
+int FIELD_WIDTH = 324;
 
 //Airship dimensions
 
@@ -33,3 +33,4 @@ color fuelColor = color(230, 252, 30);
 color gearColor = color(255, 208, 0);
 color firstRed = color(237, 28, 36);
 color firstBlue = color(0, 101, 179);
+color carpetGreen = color(23,61,26);
