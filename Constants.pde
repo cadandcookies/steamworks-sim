@@ -19,6 +19,7 @@ float DT = 0.02;
 //Field dimensions
 int FIELD_LENGTH = 648;
 int FIELD_WIDTH = 324;
+int PERIMETER_WIDTH = 4;
 
 //Airship dimensions
 
