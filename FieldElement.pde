@@ -1,5 +1,4 @@
 interface FieldElement {
-
   //Returns shape of field element
   PShape getShape();
   //Returns whether a game object is colliding with the field element

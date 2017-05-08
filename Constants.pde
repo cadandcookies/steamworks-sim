@@ -34,4 +34,4 @@ color fuelColor = color(230, 252, 30);
 color gearColor = color(255, 208, 0);
 color firstRed = color(237, 28, 36);
 color firstBlue = color(0, 101, 179);
-color carpetGreen = color(23,61,26);
+color carpetGreen = color(23, 61, 26);

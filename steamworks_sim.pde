@@ -9,5 +9,5 @@ void setup() {
 
 void draw() {
   background(170);
-  shape(f.getShape(), 0,0);
+  shape(f.getShape(), 0, 0);
 }

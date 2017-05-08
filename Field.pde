@@ -14,21 +14,20 @@ class Field {
     fieldElements = new ArrayList<FieldElement>();
     makeField();
   }
-  
-  void makeField(){
-   makeCarpet();
-   makeTape();
-   makePerimeter();
+
+  void makeField() {
+    makeCarpet();
+    makeTape();
+    makePerimeter();
   }
 
   void makeCarpet() {
     rectMode(CENTER);
-    
+
     PShape carpet = createShape(RECT, fieldCenter.x, fieldCenter.y, len + 240, wid + 48);
     carpet.setFill(carpetGreen);
     carpet.setStroke(false);
     shape.addChild(carpet);
-    
   }
 
   void makePerimeter() {
@@ -42,16 +41,15 @@ class Field {
     perimeter.addChild(leftWall);
     PShape rightWall = createShape(RECT, fieldCenter.x + len/2 + PERIMETER_WIDTH/2, fieldCenter.y, PERIMETER_WIDTH, wid);
     perimeter.addChild(rightWall);
-    
-    
+
+
     shape.addChild(perimeter);
   }
 
   void makeTape() {
-    
   }
-  
-  PShape getShape(){
-   return shape; 
+
+  PShape getShape() {
+    return shape;
   }
 }

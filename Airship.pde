@@ -8,6 +8,9 @@ class Airship implements FieldElement {
     shape = createShape(GROUP);
   }
 
+  void makeShape() {
+  }
+
   //Returns shape of field element
   PShape getShape() {
     return shape;
