@@ -22,16 +22,16 @@ int FIELD_WIDTH = 324;
 int PERIMETER_WIDTH = 4;
 
 //Airship locations
-float hexTopY = 255;
-float hexTopMidY = 290;
-float hexBotMidY = 357;
-float hexBotY = 395;
+float hexTopY = 252;
+float hexTopMidY = 287;
+float hexBotMidY = 355;
+float hexBotY = 389;
 
-float hexLL = 287;
+float hexLL = 286;
 float hexLM = 345;
-float hexLR = 404;
+float hexLR = 406;
 
-float hexRL = 877;
+float hexRL = 875;
 float hexRM = 935;
 float hexRR = 994;
 
