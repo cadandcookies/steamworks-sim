@@ -16,10 +16,4 @@ void draw() {
   background(170);
   //shape(f.getShape(), 0, 0);
   g.draw();
-  
-  ellipse(width/2, 320, 5,5);
-}
-
-void mouseClicked(){
-  println("X: " + mouseX + ", Y: " + mouseY);
 }
