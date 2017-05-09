@@ -22,11 +22,38 @@ int FIELD_LENGTH = 648;
 int FIELD_WIDTH = 324;
 int PERIMETER_WIDTH = 4;
 
-//Airship dimensions
+//Center of the field
+float centerX = 640;
+float centerY = 320;
 
-//Boiler dimensions
+//Airship locations
+float hexTopY = 255;
+float hexTopMidY = 290;
+float hexBotMidY = 357;
+float hexBotY = 395;
 
-//Hopper dimensions
+float hexLL = 287;
+float hexLM = 345;
+float hexLR = 404;
+
+float hexRL = 877;
+float hexRM = 935;
+float hexRR = 994;
+
+//Field wall locations
+
+//Top/Bottom wall points
+float twY = 50;
+float tbwlX = 225;
+float tbwrX = 1055;
+float bwY = 590;
+
+//Side wall points
+float lwX = 98;
+float swtY = 119;
+float swbY = 523;
+float rwX = 1182;
+
 
 
 //Colors

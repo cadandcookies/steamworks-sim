@@ -24,6 +24,14 @@ boolean pointInRectangle(PVector p, CollidableRectangle r) {
   if (!isToLeft(p, v2, v3)) {
     return true;
   }
+  
+  if (!isToLeft(p, v3, v4)) {
+    return true;
+  }
+  
+  if (!isToLeft(p, v4, v1)) {
+    return true;
+  }
 
   return false;
 }
