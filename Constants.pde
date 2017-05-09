@@ -21,10 +21,6 @@ int FIELD_LENGTH = 648;
 int FIELD_WIDTH = 324;
 int PERIMETER_WIDTH = 4;
 
-//Center of the field
-float centerX = 640;
-float centerY = 320;
-
 //Airship locations
 float hexTopY = 255;
 float hexTopMidY = 290;

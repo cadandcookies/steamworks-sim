@@ -17,7 +17,7 @@ void draw() {
   
   g.draw();
   
-  shape(f.getShape(), 0, 0);
+  //shape(f.getShape(), 0, 0);
 }
 
 void mouseClicked(){
