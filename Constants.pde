@@ -28,7 +28,6 @@ int PERIMETER_WIDTH = 4;
 
 //Hopper dimensions
 
-
 //Colors
 
 color fuelColor = color(230, 252, 30);

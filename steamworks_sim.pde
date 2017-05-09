@@ -15,5 +15,7 @@ void setup() {
 void draw() {
   background(170);
   //shape(f.getShape(), 0, 0);
-  g.draw();
+  g.draw1();
+  //draw robot
+  g.draw2();
 }

@@ -4,6 +4,7 @@ class Graphics{
   PImage rightAlliance;
   PImage leftTouchpads;
   PImage rightTouchpads;
+  PImage gearGoals;
   PImage top;
   PImage gui;
   
@@ -18,6 +19,7 @@ class Graphics{
     leftAlliance = loadImage("Assets/left-alliance.png");
     top = loadImage("Assets/top-layer.png");
     gui = loadImage("Assets/gui.png");
+    gearGoals = loadImage("Assets/gear-goals.png");
     
     leftCP = cp5.addColorPicker("left alliance picker")
           .setPosition(72, 930)
@@ -32,9 +34,13 @@ class Graphics{
     rightColor = #3359e2;
   }
   
-  void draw(){
+  void draw1(){
     image(fieldBG,0,0);
     image(gui,0,0);
+    image(gearGoals,0,0);
+  }
+  
+    void draw2(){
     tint(rightCP.getColorValue());
     image(rightAlliance,0,0);
     tint(leftCP.getColorValue());
