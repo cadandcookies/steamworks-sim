@@ -8,16 +8,16 @@ void setup() {
   cp5 = new ControlP5(this);
 
   size(1280, 1024, P2D);
-  //f = new Field();
+  f = new Field();
   g = new Graphics();
 }
 
 void draw() {
   background(170);
-  //shape(f.getShape(), 0, 0);
+  
   g.draw();
   
-  ellipse(width/2, 320, 5,5);
+  shape(f.getShape(), 0, 0);
 }
 
 void mouseClicked(){

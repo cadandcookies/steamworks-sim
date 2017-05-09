@@ -1,5 +1,4 @@
-//NOTE: ALL DISTANCES ARE IN INCHES, 1" = 1 PIXEL
-//NOTE: Christina fucked all of that up
+//NOTE: SCALE IS  ¯\_(ツ)_/¯
 
 //Constants
 int BLUE = 0;
@@ -43,10 +42,12 @@ float hexRR = 994;
 //Field wall locations
 
 //Top/Bottom wall points
-float twY = 50;
-float tbwlX = 225;
-float tbwrX = 1055;
-float bwY = 590;
+float twY = 52;
+float twlX = 225;
+float twrX = 1055;
+float bwY = 589;
+float bwlX = 163;
+float bwrX = 1116;
 
 //Side wall points
 float lwX = 98;
@@ -54,10 +55,13 @@ float swtY = 119;
 float swbY = 523;
 float rwX = 1182;
 
+//Boilers
+float boilerHeight = 588;
+float rBoiler = 1176;
+float lBoiler = 103;
 
 
 //Colors
-
 color fuelColor = color(230, 252, 30);
 color gearColor = color(255, 208, 0);
 color firstRed = color(237, 28, 36);
