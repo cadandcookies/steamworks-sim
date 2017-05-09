@@ -1,4 +1,5 @@
 //NOTE: ALL DISTANCES ARE IN INCHES, 1" = 1 PIXEL
+//NOTE: Christina fucked all of that up
 
 //Constants
 int BLUE = 0;

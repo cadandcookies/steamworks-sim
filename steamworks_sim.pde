@@ -2,9 +2,11 @@ import controlP5.*;
 
 Field f;
 Graphics g;
-
+ControlP5 cp5;
 
 void setup() {
+  cp5 = new ControlP5(this);
+
   size(1280, 1024, P2D);
   //f = new Field();
   g = new Graphics();
