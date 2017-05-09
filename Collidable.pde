@@ -26,7 +26,7 @@ abstract class CollidableAbstract implements Collidable {
   }
 }
 
-abstract class CollidableCircle extends CollidableAbstract {
+class CollidableCircle extends CollidableAbstract {
   float radius;
 
   CollidableCircle(PVector location, float radius) {
@@ -92,7 +92,7 @@ abstract class CollidableCircle extends CollidableAbstract {
   }
 }
 
-abstract class CollidableRectangle extends CollidableAbstract {
+class CollidableRectangle extends CollidableAbstract {
   //Location is one of the vertices
   //Points MUST be in counterclockwise order starting with the location
   PVector v1, v2, v3;

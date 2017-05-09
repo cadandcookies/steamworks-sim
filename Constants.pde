@@ -1,5 +1,4 @@
-//NOTE: ALL DISTANCES ARE IN INCHES, 1" = 1 PIXEL
-//NOTE: Christina fucked all of that up
+//NOTE: SCALE IS  ¯\_(ツ)_/¯
 
 //Constants
 int BLUE = 0;
@@ -22,14 +21,44 @@ int FIELD_LENGTH = 648;
 int FIELD_WIDTH = 324;
 int PERIMETER_WIDTH = 4;
 
-//Airship dimensions
+//Airship locations
+float hexTopY = 255;
+float hexTopMidY = 290;
+float hexBotMidY = 357;
+float hexBotY = 395;
 
-//Boiler dimensions
+float hexLL = 287;
+float hexLM = 345;
+float hexLR = 404;
 
-//Hopper dimensions
+float hexRL = 877;
+float hexRM = 935;
+float hexRR = 994;
 
 //Colors
+//Field wall locations
 
+//Top/Bottom wall points
+float twY = 52;
+float twlX = 225;
+float twrX = 1055;
+float bwY = 589;
+float bwlX = 163;
+float bwrX = 1116;
+
+//Side wall points
+float lwX = 98;
+float swtY = 119;
+float swbY = 523;
+float rwX = 1182;
+
+//Boilers
+float boilerHeight = 588;
+float rBoiler = 1176;
+float lBoiler = 103;
+
+
+//Colors
 color fuelColor = color(230, 252, 30);
 color gearColor = color(255, 208, 0);
 color firstRed = color(237, 28, 36);
