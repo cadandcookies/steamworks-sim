@@ -157,3 +157,28 @@ float distPointToLine(PVector start, PVector end, PVector point) {
 
   return sqrt(PVector.dot(e, e));
 }
+
+PVector calculateCenter(location, v1, v2, v3) {
+  PVector p = new PVector(0, 0);
+  
+  float l1 = determinant(location.x, location.y, v2.x, v2.y);
+  float l1x1 = determinant(location.x, 1, v2.x, 1);
+  float l2 = determinant(v1.x, v1.y, v3.x, v3.y);
+  float l2x1 = determinant(v1.x, 1, v3.x, 1);
+  float l1y1 = determinant(location.y, 1, v2.y, 1);
+  float l2y1 = determinant(v1.y, 1, v3.y, 1);
+  
+  float den = determinant(l1x1, l1y1, l2x1, l2y1);
+  
+  float xnum = determinant(l1, l1x1, l2, l2x1);
+  float ynum = determinant(l1, l1y1, l2, l2y1);
+  
+  p.x = xnum / den;
+  p.y = ynum / den;
+  
+  return p;
+}
+
+float determinant(float ul, float ur, float bl, float br){
+ return ul*br - ur*bl; 
+}

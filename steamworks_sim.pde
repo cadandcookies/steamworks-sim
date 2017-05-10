@@ -19,7 +19,7 @@ void draw() {
   //draw robot
   g.draw2();
   
-  g.draw();
+  //g.draw();
   
   //shape(f.getShape(), 0, 0);
 }

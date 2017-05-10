@@ -12,6 +12,10 @@ interface Collidable {
   PVector getLocation();
 
   int getType();
+
+  void translate(PVector v);
+
+  void rotate(float r); //in radians
 }
 
 abstract class CollidableAbstract implements Collidable {
@@ -90,6 +94,14 @@ class CollidableCircle extends CollidableAbstract {
   int getType() {
     return COLLIDABLE_CIRCLE;
   }
+
+  void translate(PVector v) {
+    location.add(v);
+  }
+
+  void rotate(float r) {
+    return;
+  }
 }
 
 class CollidableRectangle extends CollidableAbstract {
@@ -146,63 +158,33 @@ class CollidableRectangle extends CollidableAbstract {
   int getType() {
     return COLLIDABLE_RECTANGLE;
   }
+
+  void translate(PVector v) {
+    location.add(v);
+    v1.add(v);
+    v2.add(v);
+    v3.add(v);
+  }
+
+  void rotate(float r) {
+    PVector center = calculateCenter(location, v1, v2, v3);
+    location.sub(center);
+    v1.sub(center);
+    v2.sub(center);
+    v3.sub(center);
+    
+    location.rotate(r);
+    v1.rotate(r);
+    v2.rotate(r);
+    v3.rotate(r);
+    
+    location.add(center);
+    v1.add(center);
+    v2.add(center);
+    v3.add(center);
+
+    return;
+  }
+  
+  
 }
-
-//abstract class CollidableTriangle extends CollidableAbstract {
-//  //The location in a triangle is its first point, the other two pvectors indicate its other two points
-//  //Points MUST be defined counterclockwise
-//  PVector v1;
-//  PVector v2;
-
-//  CollidableTriangle(PVector location, PVector v1, PVector v2) {
-//    super(location);
-//    this.v1 = v1;
-//    this.v2 = v2;
-//  }
-
-//  boolean collidesWith(Collidable c) {
-//    switch(c.getType()) {
-//    case COLLIDABLE_CIRCLE:
-//      CollidableCircle cir = (CollidableCircle) c;
-//      collisionCircleTriangle(cir, this);
-//      break;
-//    case COLLIDABLE_TRIANGLE:
-//      CollidableTriangle t = (CollidableTriangle) c;
-//      break;
-//    case COLLIDABLE_RECTANGLE:
-//      CollidableRectangle r = (CollidableRectangle) c;
-//      break;
-//    default:
-//      break;
-//    }
-//    return false;
-//  }
-
-//  PVector correction(Collidable c) {
-
-//    switch(c.getType()) {
-//    case COLLIDABLE_CIRCLE:
-//      CollidableCircle cir = (CollidableCircle) c;
-//      break;
-//    case COLLIDABLE_TRIANGLE:
-//      CollidableTriangle t = (CollidableTriangle) c;
-//      break;
-//    case COLLIDABLE_RECTANGLE:
-//      CollidableRectangle r = (CollidableRectangle) c;
-//      break;
-//    default:
-//      break;
-//    }
-//    return new PVector(0, 0, 0);
-//  }
-
-//  float[] getDimensions() {
-//    float[] dimensions = {location.x, location.y, v1.x, v1.y, v2.x, v2.y};
-//    return dimensions;
-//  }
-
-
-//  int getType() {
-//    return COLLIDABLE_CIRCLE;
-//  }
-//}
