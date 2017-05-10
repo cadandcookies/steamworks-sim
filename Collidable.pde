@@ -166,18 +166,26 @@ class CollidableRectangle extends CollidableAbstract {
     v3.add(v);
   }
 
+  //Given an angle r to rotate, rotate about center of rectangle
   void rotate(float r) {
     PVector center = calculateCenter(location, v1, v2, v3);
+    rotate(r,center);
+    return;
+  }
+
+  //Given an angle and the axis to rotate around, update collidable
+  void rotate(float r, PVector axis) {
+    PVector center = axis;
     location.sub(center);
     v1.sub(center);
     v2.sub(center);
     v3.sub(center);
-    
+
     location.rotate(r);
     v1.rotate(r);
     v2.rotate(r);
     v3.rotate(r);
-    
+
     location.add(center);
     v1.add(center);
     v2.add(center);
@@ -185,6 +193,8 @@ class CollidableRectangle extends CollidableAbstract {
 
     return;
   }
-  
-  
+
+  PVector getCenter() {
+    return calculateCenter(location, v1, v2, v3);
+  }
 }
