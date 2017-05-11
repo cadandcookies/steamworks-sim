@@ -29,17 +29,61 @@ void draw() {
   //draw robot
   s.updateBalls();
   s.drawBalls();
+  
+  r.update();
+  r.drawRobot();
   g.draw2();
   
   //s.drawNormals();
   
+  if(!s.hopperUL){
+    fill(fuelColor);
+    stroke(fuelColor);
+    rectMode(CORNERS);
+    rect(377,11,408,41);
+    rect(470,11,503,41);
+    
+  }
   
+  if(!s.hopperUR){
+    fill(fuelColor);
+    stroke(fuelColor);
+    rectMode(CORNERS);
+    rect(776,11,808,41);
+    rect(870,11,900,41);
+    
+  }
+  
+  if(!s.hopperLL){
+    fill(fuelColor);
+    stroke(fuelColor);
+    rectMode(CORNERS);
+    rect(232, 600, 265, 630);
+    rect(326, 600, 358, 630);
+    
+  }
+  
+  if(!s.hopperLM){
+    fill(fuelColor);
+    stroke(fuelColor);
+    rectMode(CORNERS);
+    rect(578, 600, 609, 630);
+    rect(672, 600, 702, 630);
+    
+  }
+  
+  if(!s.hopperLR){
+    fill(fuelColor);
+    stroke(fuelColor);
+    rectMode(CORNERS);
+    rect(922, 600, 951, 630);
+    rect(1014, 600, 1045, 630);    
+  }
   
   //g.draw();
   
   //shape(f.getShape(), 0, 0);
-  r.update();
-  r.drawRobot();
+  
 }
 
 void mouseClicked(){
