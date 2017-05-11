@@ -13,6 +13,7 @@ class Robot {
 
   boolean firing;
 
+  ArrayList<CollidableWall> walls;
   //Health
 
   Robot(PVector p, int w, int h) {
@@ -23,6 +24,13 @@ class Robot {
     angle = 0;
     acc = new PVector(0, 0, 0);
     vel = new PVector(0, 0, 0);
+    
+    walls = new ArrayList<CollidableWall>();
+    walls.add(new CollidableWall(new PVector(pos.x-h/2, pos.y - w/2), new PVector(pos.x - h/2, pos.y + w/2), false));
+    walls.add(new CollidableWall(new PVector(pos.x - h/2, pos.y + w/2), new PVector(pos.x + h/2, pos.y + w/2), false));
+    walls.add(new CollidableWall(new PVector(pos.x + h/2, pos.y + w/2), new PVector(pos.x + h/2, pos.y - w/2), false));
+    walls.add(new CollidableWall(new PVector(pos.x + h/2, pos.y - w/2), new PVector(pos.x - h/2, pos.y - w/2), false));
+
   }
 
   void update() {
@@ -33,9 +41,11 @@ class Robot {
 
     if (turningl) {
       rotateVel(-TURNING_RADIUS);
+      rotateWalls(-TURNING_RADIUS);
     }
     if (turningr) {
       rotateVel(TURNING_RADIUS);
+      rotateWalls(TURNING_RADIUS);
     }
 
     if (firing && balls > 0) {
@@ -43,11 +53,10 @@ class Robot {
       balls--;
     }
     pos.add(vel);
-  }
-
-  void addAngle(float r) {
-    angle += r;
-    vel.rotate(r);
+    
+    for (CollidableWall w: walls){
+      w.translate(vel); 
+    }
   }
 
   void rotateVel(float a) {
@@ -98,7 +107,7 @@ class Robot {
       firing = false;
     }
   }
-  void drawRobot() {
+  void drawRobot() {    
     fill(255);
     stroke(140);
     rectMode(CENTER);
@@ -107,5 +116,23 @@ class Robot {
     rect(0, 0, high, wide);
     rotate(-angle);
     translate(-pos.x, -pos.y);
+    //drawShapes();
   }
+  
+  void drawShapes(){
+    for (CollidableWall w: walls){
+      shape(w.getShape(),0,0); 
+    }
+  }
+  
+  void rotateWalls(float r){
+    for (CollidableWall w: walls){
+      w.rotate(pos, r); 
+    }
+  }
+ 
+ ArrayList<CollidableWall> getWalls(){
+   return walls;
+ }
+ 
 }

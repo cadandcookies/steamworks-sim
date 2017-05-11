@@ -31,8 +31,6 @@ void draw() {
   s.drawBalls();
   
   r.update();
-  r.drawRobot();
-  g.draw2();
   
   //s.drawNormals();
   
@@ -83,7 +81,9 @@ void draw() {
   //g.draw();
   
   //shape(f.getShape(), 0, 0);
-  
+   r.drawRobot();
+  g.draw2();
+
 }
 
 void mouseClicked(){
