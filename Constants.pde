@@ -1,5 +1,7 @@
 //NOTE: SCALE IS  ¯\_(ツ)_/¯
 
+PVector center = new PVector(640, 320);
+
 //Constants
 int BLUE = 0;
 int RED = 1;

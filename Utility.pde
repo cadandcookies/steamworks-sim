@@ -6,49 +6,7 @@
 //
 //-----------------------------------------------------------------------------------------------------
 
-//This StackOverflow post was invaluable towards finding the right equations for collision functions:
-//http://stackoverflow.com/questions/401847/circle-rectangle-collision-detection-intersection
 
-//Checks if a point is in a rectangle
-boolean pointInRectangle(PVector p, CollidableRectangle r) {
-  float[] dims = r.getDimensions();
-  PVector v1 = new PVector(dims[0], dims[1]);
-  PVector v2 = new PVector(dims[2], dims[3]);
-  PVector v3 = new PVector(dims[4], dims[5]);
-  PVector v4 = new PVector(dims[6], dims[7]);
-
-  if (!isToLeft(p, v1, v2)) {
-    return true;
-  }
-
-  if (!isToLeft(p, v2, v3)) {
-    return true;
-  }
-
-  return false;
-}
-
-////Checks if a point is in a rectangle
-//boolean pointInTriangle(PVector p, CollidableTriangle t) {
-//  float[] dims = t.getDimensions();
-//  PVector v1 = new PVector(dims[0], dims[1]);
-//  PVector v2 = new PVector(dims[2], dims[3]);
-//  PVector v3 = new PVector(dims[4], dims[5]);
-
-//  if (!isToLeft(p, v1, v2)) {
-//    return true;
-//  }
-
-//  if (!isToLeft(p, v2, v3)) {
-//    return true;
-//  }
-
-//  if (!isToLeft(p, v3, v1)) {
-//    return true;
-//  }
-
-//  return false;
-//}
 
 //Checks if a point is to the left of a line segment
 //(Useful for checking collisions with convex polygons)
@@ -63,76 +21,84 @@ boolean isToLeft(PVector point, PVector p1, PVector p2) {
   return false;
 }
 
-//Checks if a circle intersects with a line segment
-boolean intersectCircle(CollidableCircle c, PVector v1, PVector v2) {
-  PVector p = c.getLocation();
-  float dist = distPointToLine(v1, v2, p);
-  if (dist <= c.radius) {
-    return true;
-  }
-  return false;
+PVector calculateCenter(PVector location, PVector  v1, PVector  v2, PVector  v3) {
+  PVector p = new PVector(0, 0);
+
+  float l1 = determinant(location.x, location.y, v2.x, v2.y);
+  float l1x1 = determinant(location.x, 1, v2.x, 1);
+  float l2 = determinant(v1.x, v1.y, v3.x, v3.y);
+  float l2x1 = determinant(v1.x, 1, v3.x, 1);
+  float l1y1 = determinant(location.y, 1, v2.y, 1);
+  float l2y1 = determinant(v1.y, 1, v3.y, 1);
+
+  float den = determinant(l1x1, l1y1, l2x1, l2y1);
+
+  float xnum = determinant(l1, l1x1, l2, l2x1);
+  float ynum = determinant(l1, l1y1, l2, l2y1);
+
+  p.x = xnum / den;
+  p.y = ynum / den;
+
+  return p;
 }
 
-
-// Checks if a circle collides with a rectangle
-boolean collisionCircleRectangle(CollidableCircle c, CollidableRectangle r) {  
-
-  if (pointInRectangle(c.getLocation(), r)) {
-    return true;
-  }
-
-  float[] dims = r.getDimensions();
-  PVector v1 = new PVector(dims[0], dims[1]);
-  PVector v2 = new PVector(dims[2], dims[3]);
-  PVector v3 = new PVector(dims[4], dims[5]);
-  PVector v4 = new PVector(dims[6], dims[7]);
-
-  if (intersectCircle(c, v1, v2)) {
-    return true;
-  }
-
-  if (intersectCircle(c, v2, v3)) {
-    return true;
-  }
-
-  if (intersectCircle(c, v3, v4)) {
-    return true;
-  }
-
-  if (intersectCircle(c, v4, v1)) {
-    return true;
-  }
-
-  return false;
+float determinant(float ul, float ur, float bl, float br) {
+  return ul*br - ur*bl;
 }
 
-////Checks if a circle collides with a triangle
-//boolean collisionCircleTriangle(CollidableCircle c, CollidableTriangle t) {
-//  if (pointInTriangle(c.getLocation(), t)) {
-//    return true;
-//  }
+PVector calcNormal(PVector p1, PVector p2) {
+  float dx = p2.x - p1.x;
+  float dy = p2.y - p1.y;
+  return new PVector(-dy, dx);
+}
+PVector calcNegNormal(PVector p1, PVector p2) {
+  float dx = p2.x - p1.x;
+  float dy = p2.y - p1.y;
+  return new PVector(dy, -dx);
+}
 
-//  float[] dims = t.getDimensions();
-//  PVector v1 = new PVector(dims[0], dims[1]);
-//  PVector v2 = new PVector(dims[2], dims[3]);
-//  PVector v3 = new PVector(dims[4], dims[5]);
+PVector midPoint(PVector p1, PVector p2) {
+  float m1 = (p1.x + p2.x)/2;
+  float m2 = (p1.y + p2.y)/2;
+  return new PVector(m1, m2);
+}
 
-//  if (intersectCircle(c, v1, v2)) {
-//    return true;
-//  }
+//Assumes normal is a unit normal
+PVector reflect(PVector p1, PVector normal) {
+  PVector d2 = PVector.mult(p1, 2);
+  float mul = d2.dot(normal);
+  return PVector.sub(p1, PVector.mult(normal, mul));
+}
 
-//  if (intersectCircle(c, v2, v3)) {
-//    return true;
-//  }
+//location to v2
+//v1 to v3
+PVector intersection(PVector location, PVector  v1, PVector  v2, PVector  v3) {
+  PVector p = new PVector(0, 0);
 
-//  if (intersectCircle(c, v3, v1)) {
-//    return true;
-//  }
-//  return false;
-//}
+  float l1 = determinant(location.x, location.y, v2.x, v2.y);
+  float l1x1 = determinant(location.x, 1, v2.x, 1);
+  float l2 = determinant(v1.x, v1.y, v3.x, v3.y);
+  float l2x1 = determinant(v1.x, 1, v3.x, 1);
+  float l1y1 = determinant(location.y, 1, v2.y, 1);
+  float l2y1 = determinant(v1.y, 1, v3.y, 1);
 
-//Checks if a rectangle collides with a rectangle
-boolean collisionRectangleRectangle(CollidableRectangle r1, CollidableRectangle r2) {
+  float den = determinant(l1x1, l1y1, l2x1, l2y1);
+
+  float xnum = determinant(l1, l1x1, l2, l2x1);
+  float ynum = determinant(l1, l1y1, l2, l2y1);
+
+  p.x = xnum / den;
+  p.y = ynum / den;
+
+  return p;
+}
+
+boolean lineSegmentCollision(PVector l11, PVector l12, PVector l21, PVector l22) {
+  PVector intersect = intersection(l11, l21, l12, l22);
+  float dist = distPointToLine(intersect, l11, l12);
+  if (dist <= 0.5) {
+    return true;
+  } 
   return false;
 }
 
@@ -156,29 +122,4 @@ float distPointToLine(PVector start, PVector end, PVector point) {
   PVector e = PVector.sub(pa, PVector.mult(n, c / PVector.dot(n, n)));
 
   return sqrt(PVector.dot(e, e));
-}
-
-PVector calculateCenter(location, v1, v2, v3) {
-  PVector p = new PVector(0, 0);
-  
-  float l1 = determinant(location.x, location.y, v2.x, v2.y);
-  float l1x1 = determinant(location.x, 1, v2.x, 1);
-  float l2 = determinant(v1.x, v1.y, v3.x, v3.y);
-  float l2x1 = determinant(v1.x, 1, v3.x, 1);
-  float l1y1 = determinant(location.y, 1, v2.y, 1);
-  float l2y1 = determinant(v1.y, 1, v3.y, 1);
-  
-  float den = determinant(l1x1, l1y1, l2x1, l2y1);
-  
-  float xnum = determinant(l1, l1x1, l2, l2x1);
-  float ynum = determinant(l1, l1y1, l2, l2y1);
-  
-  p.x = xnum / den;
-  p.y = ynum / den;
-  
-  return p;
-}
-
-float determinant(float ul, float ur, float bl, float br){
- return ul*br - ur*bl; 
 }

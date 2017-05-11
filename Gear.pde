@@ -1,4 +1,4 @@
-class Gear implements GameObject {
+class Gear {
   PShape shape;
   PVector position;
   PVector velocity;
