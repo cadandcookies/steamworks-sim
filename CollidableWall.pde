@@ -30,4 +30,14 @@ class CollidableWall {
   PShape getShape() {
     return shape;
   }
+  
+  void rotate(PVector axis, float r){
+   p1 = rotateAboutPoint(p1, axis, r);
+   p2 = rotateAboutPoint(p2, axis, r);
+  }
+  
+  void translate(PVector t){
+   p1.add(t);
+   p2.add(t);
+  }
 }

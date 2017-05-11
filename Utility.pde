@@ -123,3 +123,33 @@ float distPointToLine(PVector start, PVector end, PVector point) {
 
   return sqrt(PVector.dot(e, e));
 }
+
+PVector rotateAboutPoint(PVector v, PVector axis, float r) {
+  PVector ret = new PVector(v.x, v.y);
+  ret.sub(axis);
+  ret.rotate(r);
+  ret.add(axis);
+  return ret;
+}
+
+boolean collides(ArrayList<CollidableWall> p1, ArrayList<CollidableWall> p2) {
+  for (CollidableWall c : p1) {
+    for (CollidableWall c2 : p2) {
+      if (c.collides(c2)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+boolean collides(CollidableWall c, ArrayList<CollidableWall> body) {
+  for (CollidableWall cw : body) {
+    if (c.collides(cw)) {
+      return true;
+    }
+  }
+
+  return false;
+}

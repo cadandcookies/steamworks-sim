@@ -148,17 +148,7 @@ class Simulation {
       }
   }
   
-  boolean collides(ArrayList<CollidableWall> p1, ArrayList<CollidableWall> p2){
-    for(CollidableWall c : p1){
-     for(CollidableWall c2: p2){
-      if(c.collides(c2)){
-       return true; 
-      }
-     }
-    }
-    
-    return false;
-  }
+  
   
   void drawBalls(){
    shape(ballsShape); 
