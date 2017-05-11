@@ -98,6 +98,11 @@ class Simulation {
   void resetFuel() {
     ballList = new ArrayList<Fuel>();
     ballsShape = createShape(GROUP);
+    hopperUL = false;
+    hopperUR = false;
+    hopperLL = false;
+    hopperLM = false;
+    hopperLR = false;
   }
 
 
@@ -112,7 +117,7 @@ class Simulation {
     PVector randomPos = PVector.random2D().mult(spread);
     PVector randomVel = PVector.random2D().mult(entropy);
     //println("Velocity: " + randomVel.x + "," + randomVel.y);
-    Fuel b = new Fuel(randomPos.add(center), randomVel, 5);
+    Fuel b = new Fuel(randomPos.add(center), randomVel, 3);
     ballList.add(b);
     ballsShape.addChild(b.getShape());
   }
@@ -134,17 +139,26 @@ class Simulation {
       fixCollisionsWalls(b, fieldPerimeter);      
       fixCollisionsWalls(b, airshipLeft);      
       fixCollisionsWalls(b, airshipRight);
+      if(b.location.y < 52){
+       float dist = 52 - b.location.y;
+       b.move(new PVector(0,dist + 3));
+      }
+      
+      if(b.location.y > 589){
+       float dist = 589 - b.location.y;
+       b.move(new PVector(0,dist - 3));
+      }
     }
   }
 
   void addBall(PVector location, PVector velocity) {
-    Fuel b = new Fuel(location, velocity, 5);
+    Fuel b = new Fuel(location, velocity, 3);
     ballList.add(b);
     ballsShape.addChild(b.getShape());
   }
 
   float hopperIntensity = 100;
-  float hopperSpread = 30;
+  float hopperSpread = 20;
 
   boolean hopperUL = false;
   boolean hopperUR = false;
@@ -208,18 +222,18 @@ class Simulation {
 
     if (dump) {
       for (int j = 0; j < 50; j++) {
-        float angle = random(2*PI/32, 30*PI/32);
+        float angle = random(10*PI/32, 20*PI/32);
         if (!top) {
           angle -= PI;
         }
         PVector randAngle = PVector.fromAngle(angle);
         addBall(PVector.add(leftCenter, PVector.mult(randAngle, hopperSpread)), PVector.mult(randAngle, hopperIntensity));
 
-        //angle = random(PI, 2*PI);
-        //if (!top) {
-        //  angle -= PI;
-        //}
-        //randAngle = PVector.fromAngle(angle);
+        angle = random(10*PI/32, 20*PI/32);
+        if (!top) {
+          angle -= PI;
+        }
+        randAngle = PVector.fromAngle(angle);
         addBall(PVector.add(rightCenter, PVector.mult(randAngle, hopperSpread)), PVector.mult(randAngle, hopperIntensity));
       }
     }
