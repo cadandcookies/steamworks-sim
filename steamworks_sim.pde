@@ -3,6 +3,10 @@ import controlP5.*;
 Simulation s;
 Graphics g;
 ControlP5 cp5;
+Robot r;
+
+boolean turningr;
+boolean turningl;
 
 void setup() {
   cp5 = new ControlP5(this);
@@ -10,6 +14,12 @@ void setup() {
 
   size(1280, 1024, P2D);
   g = new Graphics();
+  
+  //Robot initialization
+  PVector start = new PVector(width/2, height/2, 0);
+  r = new Robot(start, 30, 40);
+  turningl = false;
+  turningr = false;
 }
 
 void draw() {
@@ -28,6 +38,8 @@ void draw() {
   //g.draw();
   
   //shape(f.getShape(), 0, 0);
+  r.update();
+  r.drawRobot();
 }
 
 void mouseClicked(){
@@ -48,4 +60,10 @@ void keyPressed(){
  }else if(key == '5'){
   s.dumpHopperLR();
  }
+ 
+ r.keyPressHandler();
+}
+
+void keyReleased(){
+  r.keyReleaseHandler();
 }

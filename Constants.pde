@@ -66,3 +66,8 @@ color gearColor = color(255, 208, 0);
 color firstRed = color(237, 28, 36);
 color firstBlue = color(0, 101, 179);
 color carpetGreen = color(23, 61, 26);
+
+//Robot nyooms
+int MAX_SPEED = 5;
+int MAX_ACC = 2;
+float TURNING_RADIUS = .1;
