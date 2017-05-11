@@ -38,18 +38,6 @@ class Robot {
     pos.add(vel);
   }
 
-  void multVel(float x) {
-    vel.mult(x);
-    vel.limit(MAX_SPEED);
-  }
-
-  void keyUnpressed() {
-    angle = vel.heading();
-  }
-  void multAcc(float x) {
-    acc.mult(x);
-  }
-
   void addAngle(float r) {
     angle += r;
     vel.rotate(r);
