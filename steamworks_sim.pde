@@ -33,3 +33,19 @@ void draw() {
 void mouseClicked(){
   println("X: " + mouseX + ", Y: " + mouseY);
 }
+
+void keyPressed(){
+ if(key == '1'){
+  s.dumpHopperUL(); 
+ } else if(key == 'r' || key == 'R'){
+   s.resetFuel();
+ } else if(key == '2'){
+  s.dumpHopperUR();
+ }else if(key == '3'){
+  s.dumpHopperLL();
+ }else if(key == '4'){
+  s.dumpHopperLM();
+ }else if(key == '5'){
+  s.dumpHopperLR();
+ }
+}

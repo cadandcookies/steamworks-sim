@@ -7,12 +7,12 @@ class Simulation {
   ArrayList<Fuel> ballList;
   PShape normals;
   PShape ballsShape;
-  
+
   int particleCount = 50;
-  
+
   Simulation() {
     normals = createShape(GROUP);
-    ballsShape = createShape(GROUP);
+
     initializeField();
     initializeAirships();
     initializeBalls();
@@ -44,8 +44,8 @@ class Simulation {
       normals.addChild(c.getShape());
     }
   }
-  
-  void initializeAirships(){
+
+  void initializeAirships() {
     airshipLeft = new ArrayList<CollidableWall>();
     airshipRight = new ArrayList<CollidableWall>();
     PVector lT = new PVector(hexLM, hexTopY);
@@ -54,44 +54,50 @@ class Simulation {
     PVector lB = new PVector(hexLM, hexBotY);
     PVector lrmB = new PVector(hexLR, hexBotMidY);
     PVector lrmT = new PVector(hexLR, hexTopMidY);
-    
+
     addCollidable(lT, llmT, false, airshipLeft);
     addCollidable(llmT, llmB, false, airshipLeft);
     addCollidable(llmB, lB, false, airshipLeft);
     addCollidable(lB, lrmB, false, airshipLeft);
     addCollidable(lrmB, lrmT, false, airshipLeft);
     addCollidable(lrmT, lT, false, airshipLeft);
-    
+
     for (CollidableWall c : airshipLeft) {
       normals.addChild(c.getShape());
     }
-    
+
     PVector rT = new PVector(hexRM, hexTopY);
     PVector rlmT = new PVector(hexRL, hexTopMidY);
     PVector rlmB = new PVector(hexRL, hexBotMidY);
     PVector rB = new PVector(hexRM, hexBotY);
     PVector rrmB = new PVector(hexRR, hexBotMidY);
     PVector rrmT = new PVector(hexRR, hexTopMidY);
-    
+
     addCollidable(rT, rlmT, false, airshipRight);
     addCollidable(rlmT, rlmB, false, airshipRight);
     addCollidable(rlmB, rB, false, airshipRight);
     addCollidable(rB, rrmB, false, airshipRight);
     addCollidable(rrmB, rrmT, false, airshipRight);
     addCollidable(rrmT, rT, false, airshipRight);
-    
+
     for (CollidableWall c : airshipRight) {
       normals.addChild(c.getShape());
     }
   }
 
   void initializeBalls() {
+    ballsShape = createShape(GROUP);
     ballList = new ArrayList<Fuel>();
 
 
-    for (int i = 0; i < particleCount; i++) {
-      addRandomBall();
-    }
+    //for (int i = 0; i < particleCount; i++) {
+    //  addRandomBall();
+    //}
+  }
+
+  void resetFuel() {
+    ballList = new ArrayList<Fuel>();
+    ballsShape = createShape(GROUP);
   }
 
 
@@ -130,39 +136,139 @@ class Simulation {
       fixCollisionsWalls(b, airshipRight);
     }
   }
-  
-  void dumpHopper(int i){
-    
+
+  void addBall(PVector location, PVector velocity) {
+    Fuel b = new Fuel(location, velocity, 5);
+    ballList.add(b);
+    ballsShape.addChild(b.getShape());
   }
-  
-  void dumpHopperUL(){
-    
-  }
-  
-  void fixCollisionsWalls(Fuel b, ArrayList<CollidableWall> cw){
-    for (CollidableWall c : cw) {
-        if (b.collides(c)) {
-          b.fixCollision(c);
-          b.bounce(c);
-        }
+
+  float hopperIntensity = 100;
+  float hopperSpread = 30;
+
+  boolean hopperUL = false;
+  boolean hopperUR = false;
+  boolean hopperLL = false;
+  boolean hopperLM = false;
+  boolean hopperLR = false;
+  void dumpHopper(int i) {
+    PVector leftCenter = new PVector(0, 0);
+    PVector rightCenter = new PVector(0, 0);
+    boolean top = true;
+    boolean dump = false;
+
+    switch(i) {
+    case 0:
+      leftCenter = new PVector(392, 60);
+      rightCenter = new PVector(486, 60);
+      top = true;
+      if (!hopperUL) {
+        dump = true;
       }
+      hopperUL = true;
+      break;
+    case 1:
+      leftCenter = new PVector(790, 60);
+      rightCenter = new PVector(885, 60);
+      top = true;
+      if (!hopperUR) {
+        dump = true;
+      }
+      hopperUR = true;
+      break;
+    case 2:
+      leftCenter = new PVector(247, 584);
+      rightCenter = new PVector(341, 584);
+      top = false;
+      if (!hopperLL) {
+        dump = true;
+      }
+      hopperLL = true;
+      break;
+    case 3:
+      leftCenter = new PVector(591, 584);
+      rightCenter = new PVector(686, 584);
+      top = false;
+      if (!hopperLM) {
+        dump = true;
+      }
+      hopperLM = true;
+      break;
+    case 4:
+      leftCenter = new PVector(934, 584);
+      rightCenter = new PVector(1028, 584);
+      top = false;
+      if (!hopperLR) {
+        dump = true;
+      }
+      hopperLR = true;
+      break;
+    default:
+    }
+
+    if (dump) {
+      for (int j = 0; j < 50; j++) {
+        float angle = random(2*PI/32, 30*PI/32);
+        if (!top) {
+          angle -= PI;
+        }
+        PVector randAngle = PVector.fromAngle(angle);
+        addBall(PVector.add(leftCenter, PVector.mult(randAngle, hopperSpread)), PVector.mult(randAngle, hopperIntensity));
+
+        //angle = random(PI, 2*PI);
+        //if (!top) {
+        //  angle -= PI;
+        //}
+        //randAngle = PVector.fromAngle(angle);
+        addBall(PVector.add(rightCenter, PVector.mult(randAngle, hopperSpread)), PVector.mult(randAngle, hopperIntensity));
+      }
+    }
+  }
+
+  void dumpHopperUL() {
+    dumpHopper(0);
+  }
+
+  void dumpHopperUR() {
+    dumpHopper(1);
   }
   
-  
-  
-  void drawBalls(){
-   shape(ballsShape); 
+  void dumpHopperLL() {
+    dumpHopper(2);
   }
   
-  PShape getBallsShape(){
-   return ballsShape; 
+  void dumpHopperLM() {
+    dumpHopper(3);
   }
   
-  void drawNormals(){
-   shape(normals); 
+  void dumpHopperLR() {
+    dumpHopper(4);
   }
-  
-  PShape getNormals(){
-   return normals; 
+
+  void fixCollisionsWalls(Fuel b, ArrayList<CollidableWall> cw) {
+    for (CollidableWall c : cw) {
+      if (b.collides(c)) {
+        b.fixCollision(c);
+        b.bounce(c);
+      }
+    }
+  }
+
+
+
+  void drawBalls() {
+    shape(ballsShape);
+  }
+
+  PShape getBallsShape() {
+    return ballsShape;
+  }
+
+  void drawNormals() {
+    shape(normals);
+  }
+
+  PShape getNormals() {
+    return normals;
   }
 }
