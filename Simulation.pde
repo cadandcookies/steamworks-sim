@@ -123,36 +123,47 @@ class Simulation {
   }
 
   void updateBalls() {
-
     for (Fuel b : ballList) {
       b.update();
       for (Fuel c : ballList) {
-        if (b.collides(c)) {
-          if (c.velocity.x != b.velocity.x && c.velocity.y != b.velocity.y) {
-            b.fixCollision(c);
-            c.bounce(b);
-            b.bounce(c);
+        if (b.onGround && c.onGround) {
+          if (b.collides(c)) {
+            if (c.velocity.x != b.velocity.x && c.velocity.y != b.velocity.y) {
+              b.fixCollision(c);
+              c.bounce(b);
+              b.bounce(c);
+            }
           }
         }
       }
 
-      fixCollisionsWalls(b, fieldPerimeter);      
-      fixCollisionsWalls(b, airshipLeft);      
-      fixCollisionsWalls(b, airshipRight);
-      if(b.location.y < 52){
-       float dist = 52 - b.location.y;
-       b.move(new PVector(0,dist + 3));
+
+      fixCollisionsWalls(b, fieldPerimeter);
+      if (b.onGround) {
+        fixCollisionsWalls(b, airshipLeft);      
+        fixCollisionsWalls(b, airshipRight);
       }
-      
-      if(b.location.y > 589){
-       float dist = 589 - b.location.y;
-       b.move(new PVector(0,dist - 3));
+      if (b.location.y < 52) {
+        float dist = 52 - b.location.y;
+        b.move(new PVector(0, dist + 3));
+      }
+
+      if (b.location.y > 589) {
+        float dist = 589 - b.location.y;
+        b.move(new PVector(0, dist - 3));
       }
     }
   }
 
   void addBall(PVector location, PVector velocity) {
     Fuel b = new Fuel(location, velocity, 3);
+    ballList.add(b);
+    ballsShape.addChild(b.getShape());
+  }
+
+  void addFlyingBall(PVector location, PVector velocity) {
+    Fuel b = new Fuel(location, velocity, 3);
+    b.makeFlying();
     ballList.add(b);
     ballsShape.addChild(b.getShape());
   }
@@ -246,15 +257,15 @@ class Simulation {
   void dumpHopperUR() {
     dumpHopper(1);
   }
-  
+
   void dumpHopperLL() {
     dumpHopper(2);
   }
-  
+
   void dumpHopperLM() {
     dumpHopper(3);
   }
-  
+
   void dumpHopperLR() {
     dumpHopper(4);
   }

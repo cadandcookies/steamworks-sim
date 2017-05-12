@@ -95,6 +95,7 @@ void keyPressed(){
   s.dumpHopperUL(); 
  } else if(key == 'r' || key == 'R'){
    s.resetFuel();
+   r.balls = 100;
  } else if(key == '2'){
   s.dumpHopperUR();
  }else if(key == '3'){

@@ -49,7 +49,9 @@ class Robot {
     }
 
     if (firing && balls > 0) {
-      s.addBall(new PVector(pos.x, pos.y), PVector.fromAngle(angle).add(vel).setMag(300));
+      float randAngle = random(0 - PI/8, PI/8);
+      
+      s.addFlyingBall(new PVector(pos.x, pos.y), PVector.fromAngle(angle + randAngle).add(vel).setMag(300));
       balls--;
     }
     pos.add(vel);
@@ -87,7 +89,9 @@ class Robot {
     }
 
     if (key == ' ') {
-      firing = true;
+      if(firing!= true && balls > 0){
+       firing = true; 
+      }
     }
   }
 
