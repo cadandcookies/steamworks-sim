@@ -133,6 +133,11 @@ class Robot {
     translate(-pos.x, -pos.y);
     shape(front.getShape());
     //drawShapes();
+
+    //for(CollidableWall w : walls){
+    // shape(w.getShape()); 
+    //}
+
   }
 
   void drawShapes() {
@@ -151,6 +156,7 @@ class Robot {
   ArrayList<CollidableWall> getWalls() {
     return walls;
   }
+<<<<<<< HEAD
 
   boolean collisionField() {
     /*ArrayList<ArrayList<CollidableWall>> l = s.getFieldCollides();
@@ -158,11 +164,25 @@ class Robot {
      if(collides(walls, w)){
      println("Collision");
      return true;
+=======
+ 
+ ArrayList<CollidableWall> getWalls(){
+   return walls;
+ }
+ 
+ boolean collisionField(){
+   /*ArrayList<ArrayList<CollidableWall>> l = s.getFieldCollides();
+   for (ArrayList<CollidableWall> w: l){
+     if(collides(walls, w)){a
+       println("Collision");
+       return true;
+>>>>>>> origin/master
      }
      }*/    /*
    if(collides(walls, s.airshipLeft)){
      println("Colliding with wall");
      return true;
+<<<<<<< HEAD
      }*/
     if (collides(walls.get(0), s.airshipLeft)) {
       println("colliding");
@@ -185,4 +205,15 @@ class Robot {
       }
     }
   }
+=======
+   }*/
+   if(collides(walls, s.airshipLeft)){
+     println("colliding");
+     return true;
+   }
+   
+   return false;
+ }
+ 
+>>>>>>> origin/master
 }
