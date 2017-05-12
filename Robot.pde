@@ -56,7 +56,7 @@ class Robot {
     }
     
        if(collides(walls.get(0), s.airshipLeft)){
-     println("colliding");
+     //println("colliding");
    }
     pos.add(vel);
     
@@ -123,20 +123,22 @@ class Robot {
     translate(pos.x, pos.y);
     rotate(angle);
     rect(0, 0, high, wide);
+    fill(140);
+    rect(high/2,0,7,wide);
     rotate(-angle);
     translate(-pos.x, -pos.y);
     //drawShapes();
-    
+
     //for(CollidableWall w : walls){
     // shape(w.getShape()); 
     //}
+
   }
   
   void drawShapes(){
-    /*for (CollidableWall w: walls){
+    for (CollidableWall w: walls){
       shape(w.getShape(),0,0); 
-    }*/
-    shape(walls.get(0).getShape());
+    }
   }
   
   void rotateWalls(float r){
