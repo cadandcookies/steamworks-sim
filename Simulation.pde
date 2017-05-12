@@ -296,4 +296,14 @@ class Simulation {
   PShape getNormals() {
     return normals;
   }
+  
+  ArrayList<ArrayList<CollidableWall>> getFieldCollides(){
+    ArrayList<ArrayList<CollidableWall>> l = new ArrayList<ArrayList<CollidableWall>>();
+    l.add(fieldPerimeter);
+    //l.add(boilerLeft);
+    //l.add(boilerRight);
+    l.add(airshipLeft);
+    l.add(airshipRight);
+    return l;
+  }
 }

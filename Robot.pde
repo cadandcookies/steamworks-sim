@@ -54,6 +54,10 @@ class Robot {
       s.addFlyingBall(new PVector(pos.x, pos.y), PVector.fromAngle(angle + randAngle).add(vel).setMag(300));
       balls--;
     }
+    
+       if(collides(walls.get(0), s.airshipLeft)){
+     println("colliding");
+   }
     pos.add(vel);
     
     for (CollidableWall w: walls){
@@ -111,6 +115,7 @@ class Robot {
       firing = false;
     }
   }
+  
   void drawRobot() {    
     fill(255);
     stroke(140);
@@ -120,13 +125,14 @@ class Robot {
     rect(0, 0, high, wide);
     rotate(-angle);
     translate(-pos.x, -pos.y);
-    //drawShapes();
+    drawShapes();
   }
   
   void drawShapes(){
-    for (CollidableWall w: walls){
+    /*for (CollidableWall w: walls){
       shape(w.getShape(),0,0); 
-    }
+    }*/
+    shape(walls.get(0).getShape());
   }
   
   void rotateWalls(float r){
@@ -137,6 +143,26 @@ class Robot {
  
  ArrayList<CollidableWall> getWalls(){
    return walls;
+ }
+ 
+ boolean collisionField(){
+   /*ArrayList<ArrayList<CollidableWall>> l = s.getFieldCollides();
+   for (ArrayList<CollidableWall> w: l){
+     if(collides(walls, w)){
+       println("Collision");
+       return true;
+     }
+   }*//*
+   if(collides(walls, s.airshipLeft)){
+     println("Colliding with wall");
+     return true;
+   }*/
+   if(collides(walls.get(0), s.airshipLeft)){
+     println("colliding");
+     return true;
+   }
+   
+   return false;
  }
  
 }
