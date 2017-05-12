@@ -14,6 +14,7 @@ class Robot {
   boolean firing;
 
   ArrayList<CollidableWall> walls;
+  CollidableWall front;
   //Health
 
   Robot(PVector p, int w, int h) {
@@ -24,17 +25,19 @@ class Robot {
     angle = 0;
     acc = new PVector(0, 0, 0);
     vel = new PVector(0, 0, 0);
-    
+
     walls = new ArrayList<CollidableWall>();
     walls.add(new CollidableWall(new PVector(pos.x-h/2, pos.y - w/2), new PVector(pos.x - h/2, pos.y + w/2), false));
     walls.add(new CollidableWall(new PVector(pos.x - h/2, pos.y + w/2), new PVector(pos.x + h/2, pos.y + w/2), false));
     walls.add(new CollidableWall(new PVector(pos.x + h/2, pos.y + w/2), new PVector(pos.x + h/2, pos.y - w/2), false));
     walls.add(new CollidableWall(new PVector(pos.x + h/2, pos.y - w/2), new PVector(pos.x - h/2, pos.y - w/2), false));
-
+    front = new CollidableWall(new PVector(pos.x + h/2, pos.y + w/2), new PVector(pos.x + h/2, pos.y - w/2), false);
   }
 
   void update() {
     //vel.add(acc);
+    checkBallCollision();
+
     vel.mult(1.15);
 
     vel.limit(MAX_SPEED);
@@ -50,19 +53,20 @@ class Robot {
 
     if (firing && balls > 0) {
       float randAngle = random(0 - PI/8, PI/8);
-      
+
       s.addFlyingBall(new PVector(pos.x, pos.y), PVector.fromAngle(angle + randAngle).add(vel).setMag(300));
       balls--;
     }
-    
-       if(collides(walls.get(0), s.airshipLeft)){
-     //println("colliding");
-   }
-    pos.add(vel);
-    
-    for (CollidableWall w: walls){
-      w.translate(vel); 
+
+    if (collides(walls.get(0), s.airshipLeft)) {
+      //println("colliding");
     }
+    pos.add(vel);
+
+    for (CollidableWall w : walls) {
+      w.translate(vel);
+    }
+    front.translate(vel);
   }
 
   void rotateVel(float a) {
@@ -93,8 +97,8 @@ class Robot {
     }
 
     if (key == ' ') {
-      if(firing!= true && balls > 0){
-       firing = true; 
+      if (firing!= true && balls > 0) {
+        firing = true;
       }
     }
   }
@@ -115,7 +119,7 @@ class Robot {
       firing = false;
     }
   }
-  
+
   void drawRobot() {    
     fill(255);
     stroke(140);
@@ -124,46 +128,61 @@ class Robot {
     rotate(angle);
     rect(0, 0, high, wide);
     fill(140);
-    rect(high/2,0,7,wide);
+    rect(high/2, 0, -7, wide);
     rotate(-angle);
     translate(-pos.x, -pos.y);
+    shape(front.getShape());
     //drawShapes();
   }
-  
-  void drawShapes(){
-    for (CollidableWall w: walls){
-      shape(w.getShape(),0,0); 
+
+  void drawShapes() {
+    for (CollidableWall w : walls) {
+      shape(w.getShape(), 0, 0);
     }
   }
-  
-  void rotateWalls(float r){
-    for (CollidableWall w: walls){
-      w.rotate(pos, r); 
+
+  void rotateWalls(float r) {
+    for (CollidableWall w : walls) {
+      w.rotate(pos, r);
     }
+    front.rotate(pos, r);
   }
- 
- ArrayList<CollidableWall> getWalls(){
-   return walls;
- }
- 
- boolean collisionField(){
-   /*ArrayList<ArrayList<CollidableWall>> l = s.getFieldCollides();
-   for (ArrayList<CollidableWall> w: l){
+
+  ArrayList<CollidableWall> getWalls() {
+    return walls;
+  }
+
+  boolean collisionField() {
+    /*ArrayList<ArrayList<CollidableWall>> l = s.getFieldCollides();
+     for (ArrayList<CollidableWall> w: l){
      if(collides(walls, w)){
-       println("Collision");
-       return true;
+     println("Collision");
+     return true;
      }
-   }*//*
+     }*/    /*
    if(collides(walls, s.airshipLeft)){
      println("Colliding with wall");
      return true;
-   }*/
-   if(collides(walls.get(0), s.airshipLeft)){
-     println("colliding");
-     return true;
-   }
-   
-   return false;
- }
- 
+     }*/
+    if (collides(walls.get(0), s.airshipLeft)) {
+      println("colliding");
+      return true;
+    }
+
+    return false;
+  }
+
+  void checkBallCollision() {
+    if (balls >= 100) {
+      return;
+    }
+    for (int i = 0; i < s.ballList.size(); i++) {
+      Fuel f = s.ballList.get(i);
+      if (f.collides(front) && f.onGround) {
+        f.shape.translate(-1280, -1024);
+        balls += 1;
+        s.ballList.remove(i);
+      }
+    }
+  }
 }
