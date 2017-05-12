@@ -167,7 +167,7 @@ class Robot {
      }
      
      boolean collisionField(){
-                               /*ArrayList<ArrayList<CollidableWall>> l = s.getFieldCollides();
+                                   /*ArrayList<ArrayList<CollidableWall>> l = s.getFieldCollides();
      for (ArrayList<CollidableWall> w: l){
      if(collides(walls, w)){a
      println("Collision");
@@ -212,6 +212,36 @@ class Robot {
     fixCollisions(s.fieldPerimeter);
     fixCollisions(s.airshipLeft);
     fixCollisions(s.airshipRight);
+
+    if (!s.hopperUL) {
+      if (collides(s.ulHopper, walls)) {
+        s.dumpHopperUL();
+      }
+    }
+
+    if (!s.hopperUR) {
+      if (collides(s.urHopper, walls)) {
+        s.dumpHopperUR();
+      }
+    }
+
+    if (!s.hopperLL) {
+      if (collides(s.llHopper, walls)) {
+        s.dumpHopperLL();
+      }
+    }
+
+    if (!s.hopperLM) {
+      if (collides(s.lmHopper, walls)) {
+        s.dumpHopperLM();
+      }
+    }
+
+    if (!s.hopperLR) {
+      if (collides(s.lrHopper, walls)) {
+        s.dumpHopperLR();
+      }
+    }
   }
 
   void fixCollisions(ArrayList<CollidableWall> p2) {

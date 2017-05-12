@@ -4,6 +4,11 @@ class Simulation {
   ArrayList<CollidableWall> boilerRight;
   ArrayList<CollidableWall> airshipLeft;
   ArrayList<CollidableWall> airshipRight;
+  CollidableWall ulHopper;
+  CollidableWall urHopper;
+  CollidableWall llHopper;
+  CollidableWall lmHopper;
+  CollidableWall lrHopper;
   ArrayList<Fuel> ballList;
   PShape normals;
   PShape ballsShape;
@@ -43,6 +48,12 @@ class Simulation {
     for (CollidableWall c : fieldPerimeter) {
       normals.addChild(c.getShape());
     }
+
+    ulHopper = new CollidableWall(new PVector(465, 59), new PVector(414, 59), true);
+    urHopper = new CollidableWall(new PVector(864, 59), new PVector(814, 59), true);
+    llHopper = new CollidableWall(new PVector(321, 583), new PVector(270, 583), false);
+    lmHopper = new CollidableWall(new PVector(666, 583), new PVector(614, 583), false);
+    lrHopper = new CollidableWall(new PVector(1008, 583), new PVector(958, 583), false);
   }
 
   void initializeAirships() {
