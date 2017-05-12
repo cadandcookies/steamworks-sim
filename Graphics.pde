@@ -60,5 +60,19 @@ class Graphics {
     image(leftAlliance, 0, 0);
     noTint();
     image(top, 0, 0);
+    rectMode(CORNER);
+  }
+  
+  void robotDetails(float x, float y, Robot r){
+    rectMode(CORNER);
+    noStroke();
+    fill(255);
+    float h = (100 -r.balls)* (157.0/100.0);
+    rect(80, 704, 41.844, h);
+    
+    textSize(18);
+    fill(100);
+    textAlign(CENTER);
+    text(r.balls, 100, 840);
   }
 }

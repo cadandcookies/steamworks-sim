@@ -83,7 +83,7 @@ void draw() {
   //shape(f.getShape(), 0, 0);
    r.drawRobot();
   g.draw2();
-
+  g.robotDetails(900,850,r);
 }
 
 void mouseClicked(){
