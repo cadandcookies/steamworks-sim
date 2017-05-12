@@ -159,3 +159,5 @@ boolean collides(CollidableWall c, ArrayList<CollidableWall> body) {
 
   return false;
 }
+
+//First set of walls gets moved in the collision

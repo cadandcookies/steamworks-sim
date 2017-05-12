@@ -169,7 +169,7 @@ class Simulation {
     ballsShape.addChild(b.getShape());
   }
 
-  float hopperIntensity = 100;
+  float hopperIntensity = 300;
   float hopperSpread = 20;
 
   boolean hopperUL = false;

@@ -58,15 +58,14 @@ class Robot {
       balls--;
     }
 
-    if (collides(walls.get(0), s.airshipLeft)) {
-      //println("colliding");
-    }
     pos.add(vel);
 
     for (CollidableWall w : walls) {
       w.translate(vel);
     }
     front.translate(vel);
+
+    fixFieldCollisions();
   }
 
   void rotateVel(float a) {
@@ -168,7 +167,7 @@ class Robot {
      }
      
      boolean collisionField(){
-                           /*ArrayList<ArrayList<CollidableWall>> l = s.getFieldCollides();
+                               /*ArrayList<ArrayList<CollidableWall>> l = s.getFieldCollides();
      for (ArrayList<CollidableWall> w: l){
      if(collides(walls, w)){a
      println("Collision");
@@ -197,6 +196,30 @@ class Robot {
         f.shape.translate(-1280, -1024);
         balls += 1;
         s.ballList.remove(i);
+      }
+    }
+  }
+
+  void translateWalls(PVector t) {
+    for (CollidableWall c : walls) {
+      c.translate(t);
+    }
+
+    pos.add(t);
+  }
+
+  void fixFieldCollisions() {
+    fixCollisions(s.fieldPerimeter);
+    fixCollisions(s.airshipLeft);
+    fixCollisions(s.airshipRight);
+  }
+
+  void fixCollisions(ArrayList<CollidableWall> p2) {
+    for (CollidableWall c : walls) {
+      for (CollidableWall c2 : p2) {
+        while (c.collides(c2)) {
+          translateWalls(c2.normal);
+        }
       }
     }
   }
