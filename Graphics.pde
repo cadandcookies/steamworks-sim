@@ -9,6 +9,7 @@ class Graphics {
   PImage gearGoals;
   PImage top;
   PImage gui;
+  PImage tips;
 
   ColorPicker leftCP;
   ColorPicker rightCP;
@@ -26,6 +27,8 @@ class Graphics {
     top = loadImage("Assets/top-layer.png");
     gui = loadImage("Assets/gui.png");
     gearGoals = loadImage("Assets/gear-goals.png");
+    
+    tips = loadImage("Assets/tips.png");
 
     leftCP = cp5.addColorPicker("left alliance picker")
       .setPosition(72, 930)
@@ -74,5 +77,9 @@ class Graphics {
     fill(100);
     textAlign(CENTER);
     text(r.balls, 100, 840);
+  }
+  
+  void drawTips(){
+    image(tips,0,0);
   }
 }

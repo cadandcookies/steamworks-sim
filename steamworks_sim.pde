@@ -7,6 +7,7 @@ Robot r;
 
 boolean turningr;
 boolean turningl;
+boolean tips;
 
 void setup() {
   cp5 = new ControlP5(this);
@@ -20,6 +21,7 @@ void setup() {
   r = new Robot(start, 30, 40);
   turningl = false;
   turningr = false;
+  tips = true;
 }
 
 void draw() {
@@ -82,6 +84,9 @@ void draw() {
   //s.drawNormals2();
 
   g.robotDetails(900, 850, r);
+  if(tips){
+    g.drawTips();
+  }
 }
 
 void mouseClicked() {
@@ -103,7 +108,10 @@ void keyPressed() {
   } else if (key == '5') {
     s.dumpHopperLR();
   }
-
+  
+  if (key == 't'){
+    tips = !tips;
+  }
   r.keyPressHandler();
 }
 

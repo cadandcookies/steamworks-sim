@@ -14,7 +14,7 @@ class Robot {
   boolean firing;
 
   ArrayList<CollidableWall> walls;
-  CollidableWall front;
+  //CollidableWall front;
   //Health
 
   Robot(PVector p, int w, int h) {
@@ -27,11 +27,12 @@ class Robot {
     vel = new PVector(0, 0, 0);
 
     walls = new ArrayList<CollidableWall>();
-    walls.add(new CollidableWall(new PVector(pos.x-h/2, pos.y - w/2), new PVector(pos.x - h/2, pos.y + w/2), false));
-    walls.add(new CollidableWall(new PVector(pos.x - h/2, pos.y + w/2), new PVector(pos.x + h/2, pos.y + w/2), false));
     walls.add(new CollidableWall(new PVector(pos.x + h/2, pos.y + w/2), new PVector(pos.x + h/2, pos.y - w/2), false));
     walls.add(new CollidableWall(new PVector(pos.x + h/2, pos.y - w/2), new PVector(pos.x - h/2, pos.y - w/2), false));
-    front = new CollidableWall(new PVector(pos.x + h/2, pos.y + w/2), new PVector(pos.x + h/2, pos.y - w/2), false);
+    walls.add(new CollidableWall(new PVector(pos.x-h/2, pos.y - w/2), new PVector(pos.x - h/2, pos.y + w/2), false));
+    walls.add(new CollidableWall(new PVector(pos.x - h/2, pos.y + w/2), new PVector(pos.x + h/2, pos.y + w/2), false));
+
+    //front = new CollidableWall(new PVector(pos.x + h/2, pos.y + w/2), new PVector(pos.x + h/2, pos.y - w/2), false);
   }
 
   void update() {
@@ -63,7 +64,7 @@ class Robot {
     for (CollidableWall w : walls) {
       w.translate(vel);
     }
-    front.translate(vel);
+    //front.translate(vel);
 
     fixFieldCollisions();
   }
@@ -130,7 +131,7 @@ class Robot {
     rect(high/2, 0, -7, wide);
     rotate(-angle);
     translate(-pos.x, -pos.y);
-    shape(front.getShape());
+    //shape(front.getShape());
     //drawShapes();
 
     //for(CollidableWall w : walls){
@@ -148,7 +149,7 @@ class Robot {
     for (CollidableWall w : walls) {
       w.rotate(pos, r);
     }
-    front.rotate(pos, r);
+    //front.rotate(pos, r);
   }
 
   ArrayList<CollidableWall> getWalls() {
@@ -192,7 +193,7 @@ class Robot {
     }
     for (int i = 0; i < s.ballList.size(); i++) {
       Fuel f = s.ballList.get(i);
-      if (f.collides(front) && f.onGround) {
+      if (f.collides(walls.get(0)) && f.onGround) {
         f.shape.translate(-1280, -1024);
         balls += 1;
         s.ballList.remove(i);
