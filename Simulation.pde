@@ -142,7 +142,7 @@ class Simulation {
       if (b.onGround) {
         fixCollisionsWalls(b, airshipLeft);      
         fixCollisionsWalls(b, airshipRight);
-        fixCollisionsWalls(b,r.walls);
+        fixCollisionsWalls(b, r.walls);
       }
       if (b.location.y < 52) {
         float dist = 52 - b.location.y;
@@ -280,19 +280,18 @@ class Simulation {
     }
   }
 
-  void drawNormals2(){
-    for(CollidableWall w : fieldPerimeter){
-     shape(w.getShape()); 
-    }
-    
-    for(CollidableWall w : airshipLeft){
-     shape(w.getShape()); 
-    }
-    
-    for(CollidableWall w : airshipRight){
-     shape(w.getShape()); 
+  void drawNormals2() {
+    for (CollidableWall w : fieldPerimeter) {
+      shape(w.getShape());
     }
 
+    for (CollidableWall w : airshipLeft) {
+      shape(w.getShape());
+    }
+
+    for (CollidableWall w : airshipRight) {
+      shape(w.getShape());
+    }
   }
 
 
@@ -311,8 +310,8 @@ class Simulation {
   PShape getNormals() {
     return normals;
   }
-  
-  ArrayList<ArrayList<CollidableWall>> getFieldCollides(){
+
+  ArrayList<ArrayList<CollidableWall>> getFieldCollides() {
     ArrayList<ArrayList<CollidableWall>> l = new ArrayList<ArrayList<CollidableWall>>();
     l.add(fieldPerimeter);
     //l.add(boilerLeft);

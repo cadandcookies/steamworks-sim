@@ -46,9 +46,9 @@ class Graphics {
     image(gui, 0, 0);
     image(gearGoals, 0, 0);
     tint(leftCP.getColorValue());
-    image(leftAllianceTape,0,0);
+    image(leftAllianceTape, 0, 0);
     tint(rightCP.getColorValue());
-    image(rightAllianceTape,0,0);
+    image(rightAllianceTape, 0, 0);
     noTint();
   }
 
@@ -62,14 +62,14 @@ class Graphics {
     image(top, 0, 0);
     rectMode(CORNER);
   }
-  
-  void robotDetails(float x, float y, Robot r){
+
+  void robotDetails(float x, float y, Robot r) {
     rectMode(CORNER);
     noStroke();
     fill(255);
     float h = (100 -r.balls)* (157.0/100.0);
     rect(80, 704, 41.844, h);
-    
+
     textSize(18);
     fill(100);
     textAlign(CENTER);
