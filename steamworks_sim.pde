@@ -30,7 +30,7 @@ void draw() {
   g.draw1();
   //draw robot
   s.updateBalls();
-  s.drawBalls();
+
 
   r.update();
 
@@ -80,11 +80,12 @@ void draw() {
 
   //shape(f.getShape(), 0, 0);
   r.drawRobot();
+  s.drawBalls();
   g.draw2();
   //s.drawNormals2();
 
   g.robotDetails(900, 850, r);
-  if(tips){
+  if (tips) {
     g.drawTips();
   }
 }
@@ -108,8 +109,8 @@ void keyPressed() {
   } else if (key == '5') {
     s.dumpHopperLR();
   }
-  
-  if (key == 't'){
+
+  if (key == 't') {
     tips = !tips;
   }
   r.keyPressHandler();
