@@ -87,18 +87,24 @@ PVector intersection(PVector location, PVector  v1, PVector  v2, PVector  v3) {
   float xnum = determinant(l1, l1x1, l2, l2x1);
   float ynum = determinant(l1, l1y1, l2, l2y1);
 
+  //println("Calculating p.x: " + millis());
   p.x = xnum / den;
+  //println("Calculated p.x: " + millis());
   p.y = ynum / den;
+  //println("Calculated p.y: " + millis());
 
   return p;
 }
 
 boolean lineSegmentCollision(PVector l11, PVector l12, PVector l21, PVector l22) {
   PVector intersect = intersection(l11, l21, l12, l22);
-  float dist = distPointToLine(intersect, l11, l12);
-  if (dist <= 0.5) {
+  float dist = distPointToLine(l11, l12, intersect);
+  //println("Calculated distance 1: " + millis());
+  float dist2 = distPointToLine(l21, l22, intersect);
+  //println("Calculated distance 2: " + millis());
+  if (dist <= 0.1 && dist2 <= 0.1) {
     return true;
-  } 
+  }
   return false;
 }
 
@@ -109,13 +115,13 @@ float distPointToLine(PVector start, PVector end, PVector point) {
 
   float c = PVector.dot(n, pa);
 
-  if (c > 0.0) {
+  if (c > 0.01) {
     return  sqrt(PVector.dot(pa, pa));
   }
 
   PVector bp = PVector.sub(point, end);
 
-  if (PVector.dot(n, bp) > 0) {
+  if (PVector.dot(n, bp) > 0.01) {
     return sqrt(PVector.dot(bp, bp));
   }
 

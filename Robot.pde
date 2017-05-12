@@ -125,7 +125,11 @@ class Robot {
     rect(0, 0, high, wide);
     rotate(-angle);
     translate(-pos.x, -pos.y);
-    drawShapes();
+    //drawShapes();
+    
+    //for(CollidableWall w : walls){
+    // shape(w.getShape()); 
+    //}
   }
   
   void drawShapes(){
@@ -148,7 +152,7 @@ class Robot {
  boolean collisionField(){
    /*ArrayList<ArrayList<CollidableWall>> l = s.getFieldCollides();
    for (ArrayList<CollidableWall> w: l){
-     if(collides(walls, w)){
+     if(collides(walls, w)){a
        println("Collision");
        return true;
      }
@@ -157,7 +161,7 @@ class Robot {
      println("Colliding with wall");
      return true;
    }*/
-   if(collides(walls.get(0), s.airshipLeft)){
+   if(collides(walls, s.airshipLeft)){
      println("colliding");
      return true;
    }
